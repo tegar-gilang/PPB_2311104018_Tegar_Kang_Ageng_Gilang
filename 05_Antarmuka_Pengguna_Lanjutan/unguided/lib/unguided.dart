@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Roboto',
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1B5E20)), // Emerald green
       ),
       home: const WisataPage(),
     );
@@ -24,29 +24,28 @@ class MyApp extends StatelessWidget {
 class WisataPage extends StatelessWidget {
   const WisataPage({super.key});
 
-  // Data tempat wisata
   final List<Map<String, String>> wisataList = const [
     {
       "nama": "Baturraden",
-      "gambar": "assets/baturaden.jpeg",
+      "gambar": "assets/caub.jpg",
       "deskripsi":
           "Wisata alam populer di lereng Gunung Slamet dengan udara sejuk, pemandangan indah, dan wahana keluarga yang seru.",
     },
     {
       "nama": "Curug Cipendok",
-      "gambar": "assets/cipendok.jpeg",
+      "gambar": "assets/cipendok.jpg",
       "deskripsi":
           "Air terjun setinggi 92 meter yang megah, dikelilingi hutan tropis yang menenangkan dan alami.",
     },
     {
       "nama": "Telaga Sunyi",
-      "gambar": "assets/telaga.jpeg",
+      "gambar": "assets/telaga.jpg",
       "deskripsi":
           "Telaga dengan air sebening kristal, dikelilingi pepohonan rindang—tempat sempurna untuk healing.",
     },
     {
       "nama": "Museum Banyumas",
-      "gambar": "assets/museum.j",
+      "gambar": "assets/museum.jpg",
       "deskripsi":
           "Destinasi edukatif dengan koleksi sejarah Banyumas dan budaya lokal yang menarik untuk dikunjungi.",
     },
@@ -60,151 +59,191 @@ class WisataPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final imageHeight = screenWidth * 0.55;
+
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: const Color(0xFFF8F9FA),
       body: CustomScrollView(
         slivers: [
-          // SliverAppBar
+          // HEADER MEWAH
           SliverAppBar(
             pinned: true,
-            expandedHeight: 220,
+            expandedHeight: 250,
+            backgroundColor: const Color(0xFF1B5E20),
             flexibleSpace: FlexibleSpaceBar(
+              centerTitle: true,
               title: const Text(
-                "Rekomendasi Wisata Banyumas",
+                "✨ Wisata Banyumas ✨",
                 style: TextStyle(
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  shadows: [
-                    Shadow(
-                      color: Colors.black45,
-                      offset: Offset(1, 1),
-                      blurRadius: 3,
-                    ),
-                  ],
+                  fontSize: 20,
+                  letterSpacing: 1.2,
                 ),
               ),
-              centerTitle: true,
               background: Stack(
                 fit: StackFit.expand,
                 children: [
                   Image.asset(
-                    'assets/underpas.jpg', // kamu bisa ganti gambar ini
+                    'assets/underpas.jpg',
                     fit: BoxFit.cover,
                   ),
-                  Container(color: Colors.black.withOpacity(0.3)),
+                  Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.black38,
+                          Colors.black54,
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            backgroundColor: Colors.green[700],
           ),
 
-          // SliverList
+          // DAFTAR TEMPAT WISATA
           SliverPadding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
             sliver: SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                final wisata = wisataList[index];
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
-                  child: Container(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final wisata = wisataList[index];
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeOut,
+                    margin: const EdgeInsets.only(bottom: 22),
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
                       boxShadow: const [
                         BoxShadow(
                           color: Colors.black12,
-                          blurRadius: 8,
-                          offset: Offset(0, 3),
+                          blurRadius: 12,
+                          offset: Offset(0, 4),
                         ),
                       ],
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Gambar
-                        ClipRRect(
-                          borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(20),
-                          ),
-                          child: Image.asset(
-                            wisata["gambar"]!,
-                            height: 200,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-
-                        // Nama & Deskripsi
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(24),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Gambar dengan overlay gradasi
+                          Stack(
                             children: [
-                              Text(
-                                wisata["nama"]!,
-                                style: const TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green,
+                              Image.asset(
+                                wisata["gambar"]!,
+                                width: double.infinity,
+                                height: imageHeight,
+                                fit: BoxFit.cover,
+                              ),
+                              Container(
+                                height: imageHeight,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.bottomCenter,
+                                    end: Alignment.topCenter,
+                                    colors: [
+                                      Colors.black.withOpacity(0.5),
+                                      Colors.transparent,
+                                    ],
+                                  ),
                                 ),
                               ),
-                              const SizedBox(height: 8),
-                              Text(
-                                wisata["deskripsi"]!,
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black87,
-                                  height: 1.4,
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: const [
-                                      Icon(
-                                        Icons.location_on,
-                                        color: Colors.green,
-                                        size: 18,
-                                      ),
-                                      SizedBox(width: 4),
-                                      Text(
-                                        "Banyumas, Jawa Tengah",
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          color: Colors.grey,
-                                        ),
+                              Positioned(
+                                bottom: 16,
+                                left: 16,
+                                child: Text(
+                                  wisata["nama"]!,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    shadows: [
+                                      Shadow(
+                                        color: Colors.black54,
+                                        offset: Offset(1, 1),
+                                        blurRadius: 4,
                                       ),
                                     ],
                                   ),
-                                  ElevatedButton.icon(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.green[700],
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                    ),
-                                    icon: const Icon(
-                                      Icons.explore,
-                                      color: Colors.white,
-                                    ),
-                                    label: const Text(
-                                      "Jelajahi",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+
+                          // Deskripsi elegan
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  wisata["deskripsi"]!,
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.grey[800],
+                                    height: 1.5,
+                                  ),
+                                ),
+                                const SizedBox(height: 16),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: const [
+                                        Icon(
+                                          Icons.location_on,
+                                          color: Color(0xFF1B5E20),
+                                          size: 18,
+                                        ),
+                                        SizedBox(width: 6),
+                                        Text(
+                                          "Banyumas, Jawa Tengah",
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            color: Colors.grey,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    ElevatedButton.icon(
+                                      onPressed: () {},
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            const Color(0xFF1B5E20),
+                                        foregroundColor: Colors.white,
+                                        elevation: 3,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                          vertical: 10,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(14),
+                                        ),
+                                      ),
+                                      icon: const Icon(Icons.explore),
+                                      label: const Text("Jelajahi"),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              }, childCount: wisataList.length),
+                  );
+                },
+                childCount: wisataList.length,
+              ),
             ),
           ),
         ],
