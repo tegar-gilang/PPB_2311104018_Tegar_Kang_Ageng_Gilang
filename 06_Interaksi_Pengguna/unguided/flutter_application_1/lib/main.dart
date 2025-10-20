@@ -101,7 +101,7 @@ class _BottomNavExampleState extends State<BottomNavExample> {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.25),
-                          blurRadius: 8,
+                          blurRadius: 9,
                           offset: const Offset(0, 5),
                         ),
                       ],
@@ -109,7 +109,7 @@ class _BottomNavExampleState extends State<BottomNavExample> {
                     child: const Icon(
                       Icons.search_rounded,
                       color: Colors.white,
-                      size: 35,
+                      size: 37,
                     ),
                   ),
                 ),
@@ -129,7 +129,7 @@ class _BottomNavExampleState extends State<BottomNavExample> {
       icon: Icon(
         icon,
         color: selected ? Colors.white : Colors.white70,
-        size: 33,
+        size: 38,
       ),
     );
   }
@@ -201,14 +201,14 @@ class _FormAduanPageState extends State<FormAduanPage> {
                       color: Color(0xFF144955),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 10),
 
                   _buildTextField("Nama", _namaController),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 10),
 
                   _buildTextField("NIK", _nikController,
                       keyboardType: TextInputType.number),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 10),
 
                   DropdownButtonFormField<String>(
                     value: _selectedJenisAduan,
@@ -225,7 +225,7 @@ class _FormAduanPageState extends State<FormAduanPage> {
                       });
                     },
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 10),
 
                   GestureDetector(
                     onTap: () {
@@ -234,7 +234,7 @@ class _FormAduanPageState extends State<FormAduanPage> {
                       });
                     },
                     child: Container(
-                      height: 80,
+                      height: 95,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: Colors.grey.shade100,
@@ -245,7 +245,7 @@ class _FormAduanPageState extends State<FormAduanPage> {
                         child: Text(
                           _fileName ?? 'Unggah File',
                           style: const TextStyle(
-                              fontSize: 15, color: Colors.black54),
+                              fontSize: 15, color: Colors.black54, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -253,8 +253,9 @@ class _FormAduanPageState extends State<FormAduanPage> {
                   const SizedBox(height: 12),
 
                   _buildTextField("Sampaikan Aduan", _aduanController,
-                      maxLines: 4),
+                      maxLines: 4, ),
                   const SizedBox(height: 18),
+
 
                   SizedBox(
                     width: double.infinity,
@@ -275,7 +276,7 @@ class _FormAduanPageState extends State<FormAduanPage> {
                       },
                       child: const Text(
                         'Kirim Aduan',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                        style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
