@@ -29,47 +29,50 @@ class VisitPurwokertoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, String>> wisataList = [
       {
-        'image': 'assets/baturaden.jpeg',
+        'image': 'assets/btr.jpg',
         'title': 'Baturaden',
-        'desc': 'Destinasi paling populer di kaki Gunung Slamet, dengan udara sejuk dan panorama pegunungan yang menenangkan.'
+        'desc':
+            'Destinasi paling populer di kaki Gunung Slamet, dengan udara sejuk dan panorama pegunungan yang menenangkan.',
       },
       {
         'image': 'assets/cipendok.jpg',
         'title': 'Curug Cipendok',
-        'desc': 'Air terjun megah setinggi 92 meter yang tersembunyi di tengah hutan tropis, cocok untuk pecinta petualangan.'
+        'desc':
+            'Air terjun megah setinggi 92 meter yang tersembunyi di tengah hutan tropis, cocok untuk pecinta petualangan.',
       },
       {
         'image': 'assets/alunalun.jpg',
         'title': 'Alun-Alun Purwokerto',
-        'desc': 'Pusat keramaian kota dengan suasana malam yang hidup, penuh kuliner dan hiburan rakyat.'
+        'desc':
+            'Pusat keramaian kota dengan suasana malam yang hidup, penuh kuliner dan hiburan rakyat.',
       },
       {
         'image': 'assets/museum.jpg',
         'title': 'Museum Jenderal Soedirman',
-        'desc': 'Museum bersejarah untuk mengenang perjuangan sang Panglima Besar dari Banyumas.'
+        'desc':
+            'Museum bersejarah untuk mengenang perjuangan sang Panglima Besar dari Banyumas.',
       },
       {
         'image': 'assets/telaga.jpg',
         'title': 'Telaga Sunyi',
-        'desc': 'Surga tersembunyi di lereng Gunung Slamet dengan air sebening kaca dan ketenangan alami.'
+        'desc':
+            'Surga tersembunyi di lereng Gunung Slamet dengan air sebening kaca dan ketenangan alami.',
       },
       {
         'image': 'assets/caub.jpg',
-        'title': 'Bukit Tranggulasih',
-        'desc': 'Spot sunrise dan citylight terbaik di Banyumas, sangat cocok bagi pecinta fotografi.'
+        'title': 'Caub',
+        'desc':
+            'Spot nyantai dan citylight terbaik di Baturaden, sangat cocok bagi pecinta pemandangan.',
       },
     ];
 
     final List<String> randomPhotos = [
-      'assets/baturaden.jpeg',
       'assets/cipendok.jpg',
-      'assets/alunalunpwt.jpg',
+      'assets/masjid.jpg',
       'assets/museum.jpg',
       'assets/underpas.jpg',
-      'assets/caub.jpg',
-      'assets/masjid.jpg',
-      'assets/rita.jpg',
       'assets/hutanpinus.jpg',
+      'assets/alunalunpwt.jpg',
       'assets/menara.jpg',
       'assets/curugjenggala.jpg',
       'assets/kotalama.jpg',
@@ -103,19 +106,6 @@ class VisitPurwokertoPage extends StatelessWidget {
                 children: [
                   Image.asset('assets/menara.jpg', fit: BoxFit.cover),
                   Container(color: Colors.black.withOpacity(0.4)),
-                  const Center(
-                    child: Text(
-                      'DISCOVER\nTHE BEAUTY OF PURWOKERTO',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                        height: 1.3,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -128,7 +118,10 @@ class VisitPurwokertoPage extends StatelessWidget {
 
               // ==== SECTION: Intro ====
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 10,
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const [
@@ -177,8 +170,9 @@ class VisitPurwokertoPage extends StatelessWidget {
               const SizedBox(height: 40),
 
               // ==== SECTION: EXPLORE ====
+              // ==== SECTION: EXPLORE ====
               Stack(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.bottomLeft, // posisi utama ke kiri bawah
                 children: [
                   Image.asset(
                     'assets/telaga.jpg',
@@ -192,15 +186,21 @@ class VisitPurwokertoPage extends StatelessWidget {
                     color: Colors.black.withOpacity(0.65),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 25,
+                    ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment:
+                          MainAxisAlignment.end, // dorong ke bawah
+                      crossAxisAlignment:
+                          CrossAxisAlignment.start, // teks ke kiri
                       children: const [
                         Text(
                           "TRAVEL AND ENJOY",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 28,
+                            fontSize: 22,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 1,
                           ),
@@ -211,15 +211,16 @@ class VisitPurwokertoPage extends StatelessWidget {
                             color: Colors.white,
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
+                            letterSpacing: 1,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 12),
                         Text(
-                          "Nikmati pesona alam dan budaya Banyumas. Dari Telaga Sunyi yang menenangkan, hingga Baturaden yang menakjubkan — setiap tempat menyimpan cerita dan keindahan tersendiri.",
+                          "Nikmati pesona alam dan budaya Banyumas. Dari Telaga Sunyi yang menenangkan, hingga Baturaden yang menakjubkan, setiap tempat menyimpan cerita dan keindahan tersendiri.",
                           style: TextStyle(
                             color: Colors.white70,
-                            fontSize: 15,
-                            height: 1.6,
+                            fontSize: 13,
+                            height: 1.4,
                           ),
                         ),
                       ],
@@ -227,31 +228,30 @@ class VisitPurwokertoPage extends StatelessWidget {
                   ),
                 ],
               ),
-
-              const SizedBox(height: 50),
+              const SizedBox(height: 25),
 
               // ==== SECTION: WHY VISIT ====
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: const [
                     Text(
-                      "💎 Why Visit Banyumas?",
+                      "Why Visit Banyumas?",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 22,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: 12),
                     Text(
                       "Karena Banyumas bukan hanya sekadar tempat — ini adalah pengalaman. Suasana alam yang menenangkan, keramahan warga lokal, dan keindahan alami yang masih terjaga.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white70,
-                        fontSize: 15,
-                        height: 1.7,
+                        fontSize: 13,
+                        height: 1.2,
                       ),
                     ),
                   ],
@@ -262,14 +262,17 @@ class VisitPurwokertoPage extends StatelessWidget {
 
               // ==== RANDOM PHOTO GRID ====
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Wrap(
+                  alignment: WrapAlignment
+                      .center, // <-- Tambahkan ini agar posisi foto center
                   spacing: 8,
                   runSpacing: 8,
                   children: List.generate(randomPhotos.length, (index) {
                     final double randomSize = (index % 3 == 0)
                         ? 130
                         : (index % 4 == 0 ? 100 : 160);
+
                     return ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Image.asset(
@@ -282,8 +285,6 @@ class VisitPurwokertoPage extends StatelessWidget {
                   }),
                 ),
               ),
-
-              const SizedBox(height: 60),
 
               // ==== FOOTER ====
               Container(
