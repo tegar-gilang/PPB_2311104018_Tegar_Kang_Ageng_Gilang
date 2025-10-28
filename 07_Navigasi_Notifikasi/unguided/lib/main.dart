@@ -27,13 +27,14 @@ class BottomNavExample extends StatefulWidget {
 
 class _BottomNavExampleState extends State<BottomNavExample> {
   int _selectedIndex = 2;
+  bool _isHoveringSearch = false;
 
   final List<Widget> _pages = const [
-    Center(child: Text('Halaman Home')),
-    Center(child: Text('Halaman Aduan')),
+    Center(child: Text('Halaman Home', style: TextStyle(fontSize: 18))),
+    Center(child: Text('Halaman Aduan', style: TextStyle(fontSize: 18))),
     UMKMDesaPage(),
-    Center(child: Text('Halaman Notifikasi')),
-    Center(child: Text('Halaman Profil')),
+    Center(child: Text('Halaman Notifikasi', style: TextStyle(fontSize: 18))),
+    Center(child: Text('Halaman Profil', style: TextStyle(fontSize: 18))),
   ];
 
   void _onItemTapped(int index) {
@@ -45,6 +46,8 @@ class _BottomNavExampleState extends State<BottomNavExample> {
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       body: SafeArea(child: _pages[_selectedIndex]),
+
+      // ===== NAVBAR =====
       bottomNavigationBar: Container(
         height: 85,
         margin: const EdgeInsets.only(left: 25, right: 25, bottom: 20),
@@ -59,47 +62,86 @@ class _BottomNavExampleState extends State<BottomNavExample> {
             ),
           ],
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Stack(
+          alignment: Alignment.center,
           children: [
-            _navIcon(Icons.home_rounded, 0),
-            _navIcon(Icons.edit_note_rounded, 1),
-            Container(
-              height: 70,
-              width: 70,
-              decoration: BoxDecoration(
-                color: const Color(0xFF023B3D),
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 7),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    blurRadius: 9,
-                    offset: const Offset(0, 5),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _navIcon(Icons.home_rounded, 0, "Home"),
+                _navIcon(Icons.edit_note_rounded, 1, "Aduan"),
+                const SizedBox(width: 70),
+                _navIcon(Icons.notifications_none_rounded, 3, "Notifikasi"),
+                _navIcon(Icons.person_outline_rounded, 4, "Profil"),
+              ],
+            ),
+
+            // Tombol Tengah (Search)
+            Positioned(
+              top: 8,
+              child: MouseRegion(
+                onEnter: (_) => setState(() => _isHoveringSearch = true),
+                onExit: (_) => setState(() => _isHoveringSearch = false),
+                child: GestureDetector(
+                  onTap: () => _onItemTapped(2),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    height: 70,
+                    width: 70,
+                    decoration: BoxDecoration(
+                      color: _selectedIndex == 2
+                          ? const Color(0xFF023B3D)
+                          : (_isHoveringSearch
+                              ? const Color(0xFF02555A)
+                              : const Color(0xFF12676D)),
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 7),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.25),
+                          blurRadius: 9,
+                          offset: const Offset(0, 5),
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.search_rounded,
+                      color: Colors.white,
+                      size: 35,
+                    ),
                   ),
-                ],
-              ),
-              child: IconButton(
-                icon: const Icon(Icons.search_rounded,
-                    color: Colors.white, size: 35),
-                onPressed: () => _onItemTapped(2),
+                ),
               ),
             ),
-            _navIcon(Icons.notifications_none_rounded, 3),
-            _navIcon(Icons.person_outline_rounded, 4),
           ],
         ),
       ),
     );
   }
 
-  Widget _navIcon(IconData icon, int index) {
+  Widget _navIcon(IconData icon, int index, String label) {
     bool selected = _selectedIndex == index;
-    return IconButton(
-      onPressed: () => _onItemTapped(index),
-      icon: Icon(icon,
-          color: selected ? Colors.white : Colors.white70,
-          size: selected ? 35 : 30),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+          padding: const EdgeInsets.all(0),
+          onPressed: () => _onItemTapped(index),
+          icon: Icon(
+            icon,
+            color: selected ? Colors.white : Colors.white70,
+            size: selected ? 35 : 32,
+          ),
+        ),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w500,
+            color: selected ? Colors.white : Colors.white70,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -134,6 +176,42 @@ class UMKMDesaPage extends StatelessWidget {
       'rating': 4.7,
       'image': 'assets/empat.jpg',
     },
+    {
+      'name': 'Ayam Geprek Juara',
+      'address': 'Jl. Anggrek No. 12 Kembaran Wetan',
+      'rating': 4.9,
+      'image': 'assets/sepuluh.jpg',
+    },
+    {
+      'name': 'Bakso Pak Diran',
+      'address': 'Jl. Jendral Sudirman No. 21 Kembaran Wetan',
+      'rating': 4.6,
+      'image': 'assets/lima.jpg',
+    },
+    {
+      'name': 'Kopi Kenangan',
+      'address': 'Jl. Melati No. 8 Kembaran Wetan',
+      'rating': 4.8,
+      'image': 'assets/delapan.jpg',
+    },
+    {
+      'name': 'Warunk Upnormal',
+      'address': 'Jl. Pahlawan No. 17 Kembaran Wetan',
+      'rating': 4.5,
+      'image': 'assets/sembilan.jpg',
+    },
+    {
+      'name': 'Sate Mbok Jowo',
+      'address': 'Jl. Wijaya Kusuma No. 10 Kembaran Wetan',
+      'rating': 4.9,
+      'image': 'assets/enam.jpg',
+    },
+    {
+      'name': 'Es Teh Manis',
+      'address': 'Jl. Raya Timur No. 3 Kembaran Wetan',
+      'rating': 4.6,
+      'image': 'assets/tujuh.jpg',
+    },
   ];
 
   @override
@@ -167,10 +245,15 @@ class UMKMDesaPage extends StatelessWidget {
                     child: const TextField(
                       decoration: InputDecoration(
                         hintText: 'Pencarian Produk',
+                        hintStyle: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
                         prefixIcon:
                             Icon(Icons.search, color: Colors.grey, size: 26),
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(top: 14),
+                        contentPadding: EdgeInsets.only(top: 15),
                       ),
                     ),
                   ),
@@ -184,20 +267,21 @@ class UMKMDesaPage extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: const [
-                  CategoryChip(label: 'Perabotan'),
+                  CategoryChip(label: 'Perabotan Rumah'),
                   CategoryChip(label: 'Makanan'),
                   CategoryChip(label: 'Minuman'),
                   CategoryChip(label: 'Keperluan'),
-                  CategoryChip(label: 'Peralatan'),
+                  CategoryChip(label: 'Peralatan Rumah'),
                   CategoryChip(label: 'Lainnya'),
                 ],
               ),
             ),
             const SizedBox(height: 5),
 
-            // List toko
+            // List toko bisa di-scroll
             Expanded(
               child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
                 itemCount: _umkmList.length,
                 itemBuilder: (context, index) {
                   final item = _umkmList[index];
@@ -260,7 +344,7 @@ class UMKMDesaPage extends StatelessWidget {
                                       color: Colors.black54,
                                     ),
                                   ),
-                                  const SizedBox(height: 7),
+                                  const SizedBox(height: 5),
                                   Row(
                                     children: [
                                       const Icon(Icons.star,
@@ -283,7 +367,7 @@ class UMKMDesaPage extends StatelessWidget {
                                               BorderRadius.circular(10),
                                         ),
                                         child: const Icon(Icons.add,
-                                            color: Colors.white, size: 22),
+                                            color: Colors.white, size: 23),
                                       ),
                                       const SizedBox(width: 10),
                                     ],
@@ -336,8 +420,8 @@ class DetailUMKMPage extends StatelessWidget {
             const SizedBox(height: 20),
             Text(
               umkm['name'],
-              style:
-                  const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                  fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
             Row(
@@ -374,8 +458,8 @@ class CategoryChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(right: 10),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      margin: const EdgeInsets.only(right: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(25),
@@ -386,7 +470,7 @@ class CategoryChip extends StatelessWidget {
       child: Text(
         label,
         style: const TextStyle(
-          fontSize: 15,
+          fontSize: 13,
           fontWeight: FontWeight.w600,
           color: Colors.black87,
         ),
