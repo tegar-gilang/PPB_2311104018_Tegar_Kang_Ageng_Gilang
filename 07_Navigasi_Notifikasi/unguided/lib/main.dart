@@ -26,15 +26,15 @@ class BottomNavExample extends StatefulWidget {
 }
 
 class _BottomNavExampleState extends State<BottomNavExample> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 0;
   bool _isHoveringSearch = false;
 
   final List<Widget> _pages = const [
-    Center(child: Text('Halaman Home', style: TextStyle(fontSize: 18))),
-    Center(child: Text('Halaman Aduan', style: TextStyle(fontSize: 18))),
+    HomePage(),
     UMKMDesaPage(),
-    Center(child: Text('Halaman Notifikasi', style: TextStyle(fontSize: 18))),
-    Center(child: Text('Halaman Profil', style: TextStyle(fontSize: 18))),
+    SearchPage(), //  Sekarang SearchPage aktif di tombol tengah
+    NotifikasiPage(),
+    ProfilPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -69,7 +69,7 @@ class _BottomNavExampleState extends State<BottomNavExample> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _navIcon(Icons.home_rounded, 0, "Home"),
-                _navIcon(Icons.edit_note_rounded, 1, "Aduan"),
+                _navIcon(Icons.bar_chart_rounded, 1, "Chart"),
                 const SizedBox(width: 70),
                 _navIcon(Icons.notifications_none_rounded, 3, "Notifikasi"),
                 _navIcon(Icons.person_outline_rounded, 4, "Profil"),
@@ -95,7 +95,7 @@ class _BottomNavExampleState extends State<BottomNavExample> {
                               ? const Color(0xFF02555A)
                               : const Color(0xFF12676D)),
                       shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 7),
+                      border: Border.all(color: Colors.white, width: 6.5),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.25),
@@ -107,7 +107,7 @@ class _BottomNavExampleState extends State<BottomNavExample> {
                     child: const Icon(
                       Icons.search_rounded,
                       color: Colors.white,
-                      size: 35,
+                      size: 38,
                     ),
                   ),
                 ),
@@ -147,118 +147,140 @@ class _BottomNavExampleState extends State<BottomNavExample> {
 }
 
 //
-// ===================== PAGE UMKM =====================
+// ===================== HALAMAN HOME =====================
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5),
+      appBar: AppBar(
+        title: const Text('Beranda', style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 2, 92, 86),
+        centerTitle: true,
+      ),
+      body: const Center(
+        child: Text(
+          'Selamat datang di UMKM Desa!',
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
+    );
+  }
+}
+
+//
+// ===================== HALAMAN SEARCH =====================
+class SearchPage extends StatelessWidget {
+  const SearchPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5),
+      appBar: AppBar(
+        title:
+            const Text('Pencarian', style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 2, 92, 86),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Container(
+              height: 55,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.08),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Cari produk atau toko...',
+                  hintStyle: TextStyle(
+                      fontWeight: FontWeight.w600, color: Colors.grey),
+                  prefixIcon: Icon(Icons.search, color: Colors.grey, size: 26),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(top: 16),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Masukkan kata kunci pencarian untuk menemukan produk atau UMKM yang Anda inginkan.',
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.black54, fontSize: 15),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//
+// ===================== PAGE CHART / UMKM =====================
 class UMKMDesaPage extends StatelessWidget {
   const UMKMDesaPage({super.key});
 
   final List<Map<String, dynamic>> _umkmList = const [
-    {
-      'name': 'Oraumum',
-      'address': 'Jl. Dr. Soeparno No. 98 Kembaran Wetan',
-      'rating': 4.7,
-      'image': 'assets/satu.jpg',
-    },
-    {
-      'name': 'Mampir Pawon',
-      'address': 'Jl. Mawar No. 5 Kembaran Wetan',
-      'rating': 4.8,
-      'image': 'assets/dua.jpg',
-    },
-    {
-      'name': 'Warung Mie Ramen',
-      'address': 'Jl. Mojo Gede Kembaran Wetan',
-      'rating': 4.5,
-      'image': 'assets/tiga.jpg',
-    },
-    {
-      'name': 'Roti Sehati',
-      'address': 'Jl. Gayamsari Kembaran Wetan',
-      'rating': 4.7,
-      'image': 'assets/empat.jpg',
-    },
-    {
-      'name': 'Ayam Geprek Juara',
-      'address': 'Jl. Anggrek No. 12 Kembaran Wetan',
-      'rating': 4.9,
-      'image': 'assets/sepuluh.jpg',
-    },
-    {
-      'name': 'Bakso Pak Diran',
-      'address': 'Jl. Jendral Sudirman No. 21 Kembaran Wetan',
-      'rating': 4.6,
-      'image': 'assets/lima.jpg',
-    },
-    {
-      'name': 'Kopi Kenangan',
-      'address': 'Jl. Melati No. 8 Kembaran Wetan',
-      'rating': 4.8,
-      'image': 'assets/delapan.jpg',
-    },
-    {
-      'name': 'Warunk Upnormal',
-      'address': 'Jl. Pahlawan No. 17 Kembaran Wetan',
-      'rating': 4.5,
-      'image': 'assets/sembilan.jpg',
-    },
-    {
-      'name': 'Sate Mbok Jowo',
-      'address': 'Jl. Wijaya Kusuma No. 10 Kembaran Wetan',
-      'rating': 4.9,
-      'image': 'assets/enam.jpg',
-    },
-    {
-      'name': 'Es Teh Manis',
-      'address': 'Jl. Raya Timur No. 3 Kembaran Wetan',
-      'rating': 4.6,
-      'image': 'assets/tujuh.jpg',
-    },
+    {'name': 'Oraumum', 'address': 'Jl. Dr. Soeparno No. 98 Purwokerto', 'rating': 4.7, 'image': 'assets/satu.jpg'},
+    {'name': 'Mampir Pawon', 'address': 'Jl. Mawar No. 5 Purwokerto', 'rating': 4.8, 'image': 'assets/dua.jpg'},
+    {'name': 'Warung Mie Ramen', 'address': 'Jl. Mojo Gede Purwokerto', 'rating': 4.5, 'image': 'assets/tiga.jpg'},
+    {'name': 'Roti Sehati', 'address': 'Jl. Gayamsari Purwokerto', 'rating': 4.7, 'image': 'assets/empat.jpg'},
+    {'name': 'Dapur Sari', 'address': 'Jl. Jati No. 21 Purwokerto', 'rating': 4.9, 'image': 'assets/lima.jpg'},
+    {'name': 'Sambel Ijo Maknyus', 'address': 'Jl. Melati No. 11 Purwokerto', 'rating': 4.6, 'image': 'assets/enam.jpg'},
+    {'name': 'Wedangan Pak Man', 'address': 'Jl. Anggrek 3 Purwokerto', 'rating': 4.8, 'image': 'assets/tujuh.jpg'},
+    {'name': 'Bakpia Roso', 'address': 'Jl. Kartini No. 4 Purwokerto', 'rating': 4.7, 'image': 'assets/delapan.jpg'},
+    {'name': 'Nasi Goreng Lezat', 'address': 'Jl. Kenanga No. 2 Purwokerto', 'rating': 4.9, 'image': 'assets/sembilan.jpg'},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF7F8FA),
+      backgroundColor: const Color(0xFFF5F5F5),
+      appBar: AppBar(
+        title: const Text('Chart Toko', style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 2, 92, 86),
+        centerTitle: true,
+      ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
+        padding: const EdgeInsets.symmetric(horizontal: 19, vertical: 11),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Search bar
-            Row(
-              children: [
-                const Icon(Icons.arrow_back_rounded, size: 28),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Container(
-                    height: 55,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.08),
-                          blurRadius: 8,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
-                    ),
-                    child: const TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Pencarian Produk',
-                        hintStyle: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                          color: Colors.grey,
-                        ),
-                        prefixIcon:
-                            Icon(Icons.search, color: Colors.grey, size: 26),
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.only(top: 15),
-                      ),
-                    ),
+            Container(
+              height: 55,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.08),
+                    blurRadius: 8,
+                    offset: const Offset(0, 3),
                   ),
+                ],
+              ),
+              child: const TextField(
+                decoration: InputDecoration(
+                  hintText: 'Pencarian Produk',
+                  hintStyle: TextStyle(
+                      fontWeight: FontWeight.w600, color: Colors.grey),
+                  prefixIcon: Icon(Icons.search, color: Colors.grey, size: 26),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(top: 14),
                 ),
-              ],
+              ),
             ),
             const SizedBox(height: 12),
 
@@ -267,21 +289,20 @@ class UMKMDesaPage extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: const [
-                  CategoryChip(label: 'Perabotan Rumah'),
+                  CategoryChip(label: 'Perabotan'),
                   CategoryChip(label: 'Makanan'),
                   CategoryChip(label: 'Minuman'),
-                  CategoryChip(label: 'Keperluan'),
                   CategoryChip(label: 'Peralatan Rumah'),
+                  CategoryChip(label: 'Kebutuhan Harian'),
                   CategoryChip(label: 'Lainnya'),
                 ],
               ),
             ),
             const SizedBox(height: 5),
 
-            // List toko bisa di-scroll
+            // List toko
             Expanded(
               child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
                 itemCount: _umkmList.length,
                 itemBuilder: (context, index) {
                   final item = _umkmList[index];
@@ -327,36 +348,28 @@ class UMKMDesaPage extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 12, horizontal: 4),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    item['name'],
-                                    style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
+                                  Text(item['name'],
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w800)),
                                   const SizedBox(height: 4),
-                                  Text(
-                                    item['address'],
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 5),
+                                  Text(item['address'],
+                                      style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black54)),
+                                  const SizedBox(height: 7),
                                   Row(
                                     children: [
                                       const Icon(Icons.star,
                                           color: Colors.amber, size: 20),
                                       const SizedBox(width: 6),
-                                      Text(
-                                        item['rating'].toString(),
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 15,
-                                        ),
-                                      ),
+                                      Text(item['rating'].toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w800,
+                                              fontSize: 15)),
                                       const Spacer(),
                                       Container(
                                         height: 32,
@@ -367,7 +380,7 @@ class UMKMDesaPage extends StatelessWidget {
                                               BorderRadius.circular(10),
                                         ),
                                         child: const Icon(Icons.add,
-                                            color: Colors.white, size: 23),
+                                            color: Colors.white, size: 22),
                                       ),
                                       const SizedBox(width: 10),
                                     ],
@@ -391,6 +404,50 @@ class UMKMDesaPage extends StatelessWidget {
 }
 
 //
+// ===================== HALAMAN NOTIFIKASI =====================
+class NotifikasiPage extends StatelessWidget {
+  const NotifikasiPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5),
+      appBar: AppBar(
+        title: const Text('Notifikasi', style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 2, 92, 86),
+        centerTitle: true,
+      ),
+      body: const Center(
+        child:
+            Text('Belum ada notifikasi baru.', style: TextStyle(fontSize: 16)),
+      ),
+    );
+  }
+}
+
+//
+// ===================== HALAMAN PROFIL =====================
+class ProfilPage extends StatelessWidget {
+  const ProfilPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF5F5F5),
+      appBar: AppBar(
+        title: const Text('Profil Saya', style: TextStyle(color: Colors.white)),
+        backgroundColor: const Color.fromARGB(255, 2, 92, 86),
+        centerTitle: true,
+      ),
+      body: const Center(
+        child: Text('Informasi Profil Pengguna',
+            style: TextStyle(fontSize: 16)),
+      ),
+    );
+  }
+}
+
+//
 // ===================== DETAIL PAGE =====================
 class DetailUMKMPage extends StatelessWidget {
   final Map<String, dynamic> umkm;
@@ -399,14 +456,19 @@ class DetailUMKMPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white, // ✅ Background putih
       appBar: AppBar(
-        title: Text(umkm['name']),
-        backgroundColor: const Color(0xFFD62828),
-        foregroundColor: Colors.white,
+        title: Text(
+          umkm['name'],
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: const Color.fromARGB(255, 2, 92, 86),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(15),
@@ -421,7 +483,10 @@ class DetailUMKMPage extends StatelessWidget {
             Text(
               umkm['name'],
               style: const TextStyle(
-                  fontSize: 22, fontWeight: FontWeight.bold),
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
             const SizedBox(height: 10),
             Row(
@@ -432,7 +497,10 @@ class DetailUMKMPage extends StatelessWidget {
                 Text(
                   umkm['rating'].toString(),
                   style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.w600),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black,
+                  ),
                 ),
               ],
             ),
@@ -440,7 +508,10 @@ class DetailUMKMPage extends StatelessWidget {
             Text(
               umkm['address'],
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 15, color: Colors.black54),
+              style: const TextStyle(
+                fontSize: 15,
+                color: Colors.black54,
+              ),
             ),
           ],
         ),
@@ -448,6 +519,7 @@ class DetailUMKMPage extends StatelessWidget {
     );
   }
 }
+
 
 //
 // ===================== CHIP KATEGORI =====================
@@ -459,7 +531,7 @@ class CategoryChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(right: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(25),
@@ -467,14 +539,9 @@ class CategoryChip extends StatelessWidget {
           BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 5),
         ],
       ),
-      child: Text(
-        label,
-        style: const TextStyle(
-          fontSize: 13,
-          fontWeight: FontWeight.w600,
-          color: Colors.black87,
-        ),
-      ),
+      child: Text(label,
+          style: const TextStyle(
+              fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black87)),
     );
   }
 }
