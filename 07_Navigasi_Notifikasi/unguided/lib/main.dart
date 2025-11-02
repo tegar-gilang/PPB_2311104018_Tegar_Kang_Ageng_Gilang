@@ -458,12 +458,19 @@ class DetailUMKMPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white, // ✅ Background putih
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white, // ✅ Warna arrow back diubah jadi putih
+        ),
         title: Text(
           umkm['name'],
-          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: const Color.fromARGB(255, 2, 92, 86),
         centerTitle: true,
+        elevation: 3,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
