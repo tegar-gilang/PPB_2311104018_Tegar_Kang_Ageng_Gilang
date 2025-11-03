@@ -10,13 +10,13 @@ class LatihanMemilihGambar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Latihan Memilih Gambar',
+      title: 'Picture Saver',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xFF115967),
           title: const Text(
-            'Latihan Memilih Gambar',
+            'Picture Saver',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w600,
@@ -41,15 +41,16 @@ class GambarContainer extends StatelessWidget {
 
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Container untuk gambar
             Container(
-              height: 350,
+              height: 380,
               width: double.infinity,
               decoration: BoxDecoration(
+                color: Color(0xFFF2F2F2), // background abu muda di dalam bingkai
                 border: Border.all(color: Colors.grey.shade400, width: 1.5),
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -62,7 +63,7 @@ class GambarContainer extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 80),
+            const SizedBox(height: 130),
 
             // Tombol Camera & Gallery
             Row(
